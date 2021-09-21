@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const globImporter = require('node-sass-glob-importer')
 const path = require('path')
 
@@ -18,6 +19,9 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
+          },
+          {
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: "css-loader",
@@ -43,6 +47,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       title: 'My App',
       template: path.resolve(__dirname, "src/index.html"),
