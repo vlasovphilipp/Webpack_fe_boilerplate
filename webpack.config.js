@@ -27,6 +27,9 @@ module.exports = {
             loader: "css-loader",
           },
           {
+            loader: "postcss-loader",
+          },
+          {
             loader: 'sass-loader',
             options: {
               sassOptions: {
@@ -47,7 +50,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css'
+    }),
     new HtmlWebpackPlugin({
       title: 'My App',
       template: path.resolve(__dirname, "src/index.html"),
