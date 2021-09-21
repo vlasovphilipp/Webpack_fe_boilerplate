@@ -1,8 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const globImporter = require('node-sass-glob-importer')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
 module.exports = {
@@ -17,16 +15,12 @@ module.exports = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        exclude: /node_modules/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: 'style-loader',
           },
           {
             loader: "css-loader",
-            options: {
-              url: false
-            }
           },
           {
             loader: 'sass-loader',
@@ -39,8 +33,12 @@ module.exports = {
         ]
       },
       {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.html$/i,
-        loader: 'html-loader'
+        loader: 'html-loader',
       },
     ]
   },
@@ -56,10 +54,6 @@ module.exports = {
       host: 'localhost',
       port: 5006,
       server: { baseDir: ['dist'] }
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'css/style.css',
-      ignoreOrder: false
     }),
   ],
 };
